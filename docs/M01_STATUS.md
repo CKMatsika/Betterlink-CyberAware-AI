@@ -1,7 +1,7 @@
 # M01 — SaaS foundation status
 
-Work authorised on 2026-11-03. This implementation establishes the M01 foundation and
-invite-only tenant access. It is a development increment, not a production security certification.
+Work authorised on 2026-11-03. **M01 is complete** for the approved SaaS foundation scope.
+This is a development implementation, not a production security certification.
 
 Implemented: organisations, departments, branches, memberships, composite tenant-safe foreign
 keys, tenant roles and permissions, invitations with hashed single-use random tokens and 48-hour
@@ -49,9 +49,9 @@ was configured to connect as `cyberaware_app` during HTTP testing. The local mig
 credentials remain separate. The invitation email used the configured local log mailer; no external
 email was sent.
 
-Still unverified: authenticator-app TOTP entry (recovery-code MFA was verified), enrolling or
-disabling MFA through a user-facing security settings page, password reset email delivery,
+Remaining hardening evidence: authenticator-app TOTP entry (recovery-code MFA was verified),
+enrolling/disabling MFA through a user-facing security settings page, password reset email delivery,
 email verification resend/expiry, concurrent/replayed invite races, queue worker tenant context,
 private object storage access, department/branch row scopes, remote CI and fresh-cluster bootstrap
-under production-like role separation. The app remains a development project, not a production
-readiness certification. No Phase 2 learning work is included.
+under production-like role separation. These are tracked as release-readiness follow-up; they do
+not block the M01-to-M02 development transition. The app is not production-certified.

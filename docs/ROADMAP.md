@@ -1,6 +1,6 @@
 # Independently approved implementation phases
 
-Only Phase 0 is authorised. Stop after this phase; each later phase needs explicit approval.
+M01 and M02 are complete for controlled development review. Stop here; later phases need explicit approval.
 
 | Phase | Deliverables | Exit gate |
 | --- | --- | --- |

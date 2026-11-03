@@ -1,91 +1,55 @@
-# Implementation status — Phase 0
+# Implementation status — M02 complete
 
-Date: 2026-11-03 (Africa/Harare). Source: [master brief](../MASTER_BRIEF.md).
-Phase 0 complete. M01 implementation is in progress under user approval. Developer: Betterlink Engineering.
+Date: 2026-11-03 (Africa/Harare). Project: Betterlink CyberAware AI.
+Repository: `https://github.com/CKMatsika/Betterlink-CyberAware-AI`, branch `main`.
 
-## Location and repository
+## Phase status
 
-Project: `C:\Users\User\Desktop\Betterlink CyberAware AI\CyberAware-AI`.
-The parent workspace was empty and was not a Git repository. A new independent `main` repository
-was initialised here. No remote is configured; nothing is published or deployed. Runtime,
-dependencies, secrets, database files and build output are ignored. See `git log -1` for the
-Phase 0 commit; its hash is supplied in the completion report.
+M01 secure tenancy and M02 learning core are complete for controlled development review.
+M03 and all later phases remain unauthorised and unimplemented. This is not a production
+release or a security certification. Do not load real tenant or employee data.
 
-No ZimComply files, configuration or databases were accessed or changed. Existing database
-names and credentials were not enumerated. No existing database was migrated.
+## Delivered in M02
 
-## Environment verification
-
-| Component | Verified result |
-| --- | --- |
-| System PHP | 8.2.12 at C:\xampp\php; unchanged, incompatible with final PHP requirement |
-| Project PHP | 8.4.27 NTS x64, ignored .runtime/php84; official archive SHA-256 verified |
-| Composer | 2.10.2 |
-| Node.js / npm | 20.19.2 / 11.6.0 |
-| PostgreSQL | 16.10; dedicated UTF-8 cluster, SCRAM auth, loopback port 55432 |
-| Git | 2.50.0.windows.2 |
-| Docker | CLI present; engine unavailable; not required |
-| Laravel / Inertia PHP | 12.70.2 / 2.0.28 |
-| React / React DOM | 19.3.1 / 19.3.1 |
-| Inertia React | 2.3.29 |
-| TypeScript | 5.9.3 |
-| Tailwind / Tailwind Vite | 4.3.4 / 4.3.4 |
-| Vite / Laravel Vite plugin | 6.4.5 / 1.3.0 |
-
-Existing PostgreSQL 16 service was running; ordinary port 5432 did not respond and a listener
-was observed on 5433. The new project uses a separate cluster. Existing service configuration
-was not changed. Sandbox Node filesystem EPERM errors were resolved by approved direct
-execution, without changing Node. System PHP and global package installations were unchanged.
-
-## Delivered scope
-
-- Laravel/Inertia React/TypeScript foundation page with Tailwind 4 and production assets.
-- Dedicated cyberaware_ai_dev database with stock identity/session, cache and queue tables.
-- Eight reserved domain boundaries, proposed entities/ERD, tenant-isolation and scoped RBAC design.
-- Learning architecture, safe simulation lifecycle, threat model, privacy requirements and AI governance.
-- Phased roadmap, local runtime/database helpers, PHPUnit smoke coverage and CI conventions.
+- Tenant-scoped course drafts and sequential versions, with editing limited to their author.
+- PostgreSQL triggers prevent updates to published versions, lessons, assessments and questions.
+- Separate authorised reviewer required for publication; the author cannot self-publish.
+- Lessons with text and transcripts, optional files in the private local disk, and an assignment-
+  checked media download route. Public storage serving remains disabled.
+- Tenant-scoped assignments for active members, learner course catalogue, lesson completion,
+  server-side grading, recorded attempts/responses, retry limits and pass lockout.
+- Audit events for draft creation/updates, version creation/publication, assignments, lesson
+  completion and assessment submission.
+- Synthetic browser acceptance covered author/reviewer separation, publication, assignment,
+  catalogue access, completion, failed attempt and passing retry.
 
 ## Verification evidence
 
 | Check | Result |
 | --- | --- |
-| Initial skeleton baseline | Unit example passed; HTTP example failed because no application key existed yet |
-| Setup | Generated independent key; intermediate missing-Inertia-adapter failure resolved by installation |
-| Composer validate --strict | Passed |
-| Framework tests | 5 passed, 31 assertions; stock unit example plus 4 foundation feature tests |
-| Laravel Pint | Passed after formatting new and stock skeleton files |
-| PostgreSQL migrations | All 3 stock migrations applied; status verified; repeat migrate is no-op |
-| TypeScript | npm run typecheck passed |
-| Production build | Passed; Vite 6.4.5, 780 transformed modules |
-| Composer audit | No security vulnerability advisories found |
-| npm audit | 0 vulnerabilities |
-| Browser acceptance | 1280x900 desktop and 390x844 mobile; 8 planned modules; no horizontal overflow; no captured console warnings/errors |
-| Operational routes | Login, registration, campaigns/API, billing and assistant return 404 |
-| Private storage | Default private local disk, automatic serving disabled; example private URL returns 404 |
+| PHP framework suite | 10 passed, 48 assertions, including private media storage, route authentication and grader cases |
+| Laravel Pint | Passed |
+| TypeScript | `npm run typecheck` passed |
+| Vite production build | Passed; 791 modules transformed |
+| PostgreSQL migration | Applied as `cyberaware_owner`; migration status verified |
+| PostgreSQL immutable-content probe | A published lesson update was rejected by the trigger |
+| Browser workflow | Synthetic reviewer and learner completed draft/review/publish/assign, lesson completion and failed-then-passed assessment flows using `cyberaware_app`; assigned learner downloaded lesson media through the scoped route |
+| Tenant checks | Learning routes run inside M01 tenant middleware and PostgreSQL RLS; unrelated-tenant denial was verified in M01. A dedicated M02 cross-tenant assignment matrix remains release-hardening evidence. |
 
-Browser initially showed missing sessions before database migration finished; after migration
-and reload, the page rendered correctly. Final assets: JS 449.72 kB (146.08 kB gzip), CSS
-57.37 kB (11.84 kB gzip), manifest 0.20 kB. Future work includes code splitting and a measured
-low-bandwidth assessment. Browser checks used the real PHP 8.4/PostgreSQL-backed web server.
-Framework tests used ephemeral SQLite; they do not prove tenant isolation. Remote CI is unverified.
+## Limits and follow-up
 
-## Risks and limitations
+Automated feature coverage verifies a PDF upload is stored on the private local disk. The browser
+file-picker interaction itself was not confirmed in this run. An assigned learner downloaded
+private media successfully; a dedicated browser denial check for an unassigned member remains.
+Media is local-only: cloud storage, transcoding, streaming, malware scanning and quotas are not
+provided. Responsive layout was implemented, but a throttled low-bandwidth run and formal
+screen-reader/accessibility audit were not completed. Certificates, reminders, reporting,
+simulation, AI, billing, enterprise integrations, remote CI, production deployment, backup/restore,
+and security review remain future work.
 
-No existing application/schema compatibility risks were introduced. Composer intentionally
-rejects default system PHP 8.2; select the project runtime. Initial dependencies were resolved
-under PHP 8.2, then validated and executed under PHP 8.4 with the final platform requirement.
+M02 browser checks used disposable synthetic accounts and the local development database. Those
+test records remain confined to the existing synthetic `M01 E2E Test` tenant. No real employee or
+customer data was used, and no external email or file service was contacted.
 
-Tenant auth, policies/RLS, MFA, audit persistence, scoped jobs, secure media routes and production
-controls are future work. Learning, simulation delivery, AI, risk scoring, reporting, integrations
-and commercial modules remain planned. There is no live payment, mail delivery, AI provider,
-production deployment, offline service worker or employee dataset.
-
-Release gates include restricted database roles, TLS, secrets management, privacy/legal review,
-retention, restore drills and feature-specific acceptance. The local cluster owner is a development
-superuser and cannot validate production RLS. CI is supplied but not remotely executed. No remote
-repository was created. The local development server/database may remain running for review.
-
-## Approval boundary
-
-Stop here. Proposed Phase 1 is secure tenancy and authentication, subject to explicit approval
-and the negative isolation tests defined in the roadmap. No Phase 1 work has begun.
+M01 residual hardening evidence is recorded in [M01_STATUS.md](M01_STATUS.md). Follow the roadmap
+for the next approval boundary; stop at M02 until the user authorises a later phase.

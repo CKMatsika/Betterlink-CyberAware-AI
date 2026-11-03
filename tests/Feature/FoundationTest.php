@@ -10,15 +10,17 @@ class FoundationTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_foundation_exposes_only_planned_module_metadata(): void
+    public function test_foundation_exposes_public_module_status_without_private_records(): void
     {
         $this->withoutVite();
         $this->get('/')->assertOk()->assertInertia(fn (Assert $page) => $page
             ->component('Foundation')
-            ->where('phase', 'Phase 0')
+            ->where('phase', 'Phase 2 · M02 Learning core')
             ->has('modules', 8)
             ->where('modules.0.code', 'M01')
             ->where('modules.7.code', 'M08')
+            ->where('modules.0.status', 'Complete')
+            ->where('modules.1.status', 'Complete')
             ->missing('users')
             ->missing('auth'));
     }
