@@ -1,7 +1,7 @@
 # Implementation status — Phase 0
 
 Date: 2026-11-03 (Africa/Harare). Source: [master brief](../MASTER_BRIEF.md).
-Phase 0 complete. Phase 1 is not authorised. Developer: Betterlink Engineering.
+Phase 0 complete. M01 implementation is in progress under user approval. Developer: Betterlink Engineering.
 
 ## Location and repository
 

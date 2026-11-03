@@ -28,9 +28,10 @@ class FoundationTest extends TestCase
         $this->get('/up')->assertOk();
     }
 
-    public function test_operational_endpoints_are_not_exposed(): void
+    public function test_public_registration_and_product_workflows_are_not_exposed(): void
     {
-        foreach (['/login', '/register', '/campaigns', '/api/campaigns', '/billing', '/assistant'] as $path) {
+        $this->get('/login')->assertOk();
+        foreach (['/register', '/campaigns', '/api/campaigns', '/billing', '/assistant'] as $path) {
             $this->get($path)->assertNotFound();
         }
     }
