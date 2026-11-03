@@ -1,12 +1,12 @@
-# Implementation status — M03 complete for controlled development review
+# Implementation status — M01–M04 complete for controlled development review
 
 Date: 2026-11-03 (Africa/Harare). Project: Betterlink CyberAware AI.
 Repository: `https://github.com/CKMatsika/Betterlink-CyberAware-AI`, branch `main`.
 
 ## Phase status
 
-M01 secure tenancy, M02 learning core, and M03 safe simulation are implemented for controlled
-development review. M04 and later modules remain unapproved. This is not a production release,
+M01 secure tenancy, M02 learning core, M03 safe simulation, and M04 human-risk intelligence are
+implemented for controlled development review. M05 and later modules remain unapproved. This is not a production release,
 security certification, or approval for real employee data. Do not load real tenant or employee
 data.
 
@@ -35,18 +35,37 @@ data.
 - M03 security-sensitive actions write tenant audit events; reports do not assign misconduct or
   negligence based on simulation behaviour.
 
+## M04 delivered
+
+- The tenant dashboard reports a six-month awareness index based on course-version completion,
+  assessment pass outcomes, and positive post-simulation educational acknowledgements.
+- The index is higher for stronger observed learning signals; it is not an individual risk score,
+  and does not infer intent, negligence, or misconduct. Simulation interactions are not used as
+  evidence of wrongdoing.
+- Tenant administrators can append immutable indicator-weight versions. Each report period uses
+  the configuration version effective at that period end. Learning completion timestamps are
+  first-write-only so later repeat visits cannot rewrite an earlier period.
+- Missing indicators are excluded and remaining weights are normalized. Metrics with fewer than
+  five contributing memberships are suppressed; no names, individual rows, or department
+  comparisons are returned.
+- Dashboard access requires `reports.view`; configuration requires `risk.configure`. M04 source
+  data and configuration are tenant-scoped by RLS, and dashboard/configuration actions are audited.
+
 ## Verification evidence
 
 | Check | Result |
 | --- | --- |
-| PHP framework suite | 16 passed (86 assertions); includes exact scope, distinct approval, digest invalidation, kill switch, suppression, cancellation and bounded retry checks |
+| PHP framework suite | 21 passed (126 assertions); includes M04 permission gates, append-only configuration, effective-period version selection, input validation, missing-data normalization, cohort suppression and aggregate completion scoring |
 | Laravel Pint | Passed |
 | TypeScript | `npm run typecheck` passed |
 | Vite production build | Passed |
-| PostgreSQL migrations | M03 migrations applied and `migrate:status` verified as `cyberaware_owner` |
+| Browser acceptance | Local public preview rendered the updated M04 phase and module status; authenticated dashboard access and controls are covered by feature tests rather than a signed-in browser session |
+| PostgreSQL migrations | M03 and M04 migrations applied and `migrate:status` verified as `cyberaware_owner` |
 | Restricted-role PostgreSQL check | Dispatcher and isolation probe used `cyberaware_app`; another tenant's simulation rows were invisible and a cross-tenant write was rejected by RLS |
 | PostgreSQL end-to-end sandbox run | Synthetic `example.test` recipient passed approval, digest, outbox, scheduled dispatch, in-memory `ArrayTransport`, delivery event, public learning page, deduplicated education event and one remedial assignment |
 | External delivery | None. The test recipient domain is reserved `.test`; the forced array transport recorded one in-memory message |
+| M04 PostgreSQL migration | Tenant-scoped indicator-version migration applied and verified as `cyberaware_owner` |
+| M04 PostgreSQL aggregate E2E | Synthetic five-member tenant run as restricted `cyberaware_app`: 80% course completion, 80% assessment pass rate, computed index 80, no member-level result rows, immutable configuration and RLS isolation verified |
 
 The E2E fixture uses synthetic accounts and the local development database. Synthetic M03 QA rows
 remain in that database. No real employee or customer records were used.
@@ -62,4 +81,4 @@ live DNS publication was not performed. A broad load/abuse matrix and formal acc
 remain release-hardening work. Nothing in this status marks M03 production-ready.
 
 M01 residual hardening evidence remains in [M01_STATUS.md](M01_STATUS.md). Continue to follow the
-roadmap approval boundary; stop after M03 until the user authorises another module.
+roadmap approval boundary; stop after M04 until the user authorises another module.

@@ -193,10 +193,14 @@ final class LearningController extends Controller
     public function completeLesson(Request $request, string $organisation, string $assignmentId, string $lessonId, Audit $audit): RedirectResponse
     {
         [$assignment, $lesson] = $this->assignedLesson($assignmentId, $lessonId);
-        DB::table('lesson_progress')->updateOrInsert(
-            ['organisation_id' => $assignment->organisation_id, 'assignment_id' => $assignment->id, 'lesson_id' => $lesson->id],
-            ['completed_at' => now(), 'updated_at' => now(), 'created_at' => now()],
-        );
+        DB::table('lesson_progress')->insertOrIgnore([
+            'organisation_id' => $assignment->organisation_id,
+            'assignment_id' => $assignment->id,
+            'lesson_id' => $lesson->id,
+            'completed_at' => now(),
+            'updated_at' => now(),
+            'created_at' => now(),
+        ]);
         $audit->record($request, 'learning.lesson.completed', 'lesson', $lesson->id);
 
         return redirect()->route('learning.catalogue', ['organisation' => $organisation])->with('status', 'Lesson marked complete.');

@@ -39,9 +39,8 @@ final class Membership extends Model
 
     public function hasPermission(string $permission): bool
     {
-        // M03 permissions are introduced by a later migration than many tenants' role grants.
-        // Preserve the established tenant-admin authority without broadening other roles.
-        if (in_array($permission, ['simulations.authorise', 'simulations.approve', 'simulations.kill'], true) && $this->hasAnyRole(['tenant_admin'])) {
+        // Preserve established tenant-admin authority for newly introduced module permissions.
+        if (in_array($permission, ['simulations.authorise', 'simulations.approve', 'simulations.kill', 'risk.configure'], true) && $this->hasAnyRole(['tenant_admin'])) {
             return true;
         }
 

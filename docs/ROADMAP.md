@@ -1,6 +1,6 @@
 # Independently approved implementation phases
 
-M01, M02 and M03 are complete for controlled development review. Stop here; later phases need explicit approval.
+M01 through M04 are complete for controlled development review. Stop here; M05 and later phases need explicit approval.
 
 | Phase | Deliverables | Exit gate |
 | --- | --- | --- |
@@ -9,7 +9,7 @@ M01, M02 and M03 are complete for controlled development review. Stop here; late
 | 2 — Learning core | M02 original course drafts/review/versioning, lessons, private media, quizzes, assignments, learner dashboard | Server grading, progress/retry tests, accessibility and low-bandwidth browser acceptance |
 | 3 — Evidence and reporting | Certificates/revocation/verification, reminders, M06 tenant/department reporting, private audit exports | Evidence integrity, minimal public verification, export authorisation, retention tests |
 | 4 — Safe simulation | **M03 complete:** organisation-authorised recipient scopes, DNS domain proof, distinct digest-bound approval, fixed safe template, kill switch, scheduled sandbox delivery, feedback, idempotent remedial assignments and aggregate results | Local PostgreSQL sandbox workflow verified with `cyberaware_app`; no external email; controlled development review only. Broader retry/quota abuse matrix remains release-hardening evidence |
-| 5 — Human-risk intelligence | M04 configurable versioned indicators, trends, explanations and executive summaries | Reproducible scoring, missing-data rules, small-cohort privacy checks; no misconduct inference |
+| 5 — Human-risk intelligence | **M04 complete:** configurable immutable indicator versions, six-month awareness index trends, explanations and an executive dashboard | Deterministic period scoring, explicit missing-data rules, minimum cohort of five, role-gated configuration, tenant RLS and audit; no individual risk or misconduct inference |
 | 6 — AI assistant | M05 approved provider adapter, private retrieval, original drafts and mandatory review | AI privacy/injection evaluation, publication gate and kill switch |
 | 7 — Commercial SaaS | M08 per-user/annual tiers, trials, seats, onboarding, entitlement enforcement and controlled billing | Entitlements cannot bypass policies; live payment integration requires explicit approval and sandbox verification |
 | 8 — Enterprise integrations | M07 separately scoped Entra/M365/AD/SAML/OIDC/HR/LMS connectors | Provider-specific security, revocation, tenant mapping, replay and contract tests; label each integration operational only after verification |

@@ -20,7 +20,7 @@ export default function Foundation({ modules, phase }: Props) {
                     <p className="mt-6 max-w-2xl text-lg leading-relaxed text-slate-300">Cybersecurity learning and human-risk management designed for organisations in Zimbabwe, Southern Africa and beyond.</p>
                     <aside className="mt-10 rounded-xl border border-amber-800/60 bg-amber-950/30 p-5" aria-label="Implementation status">
                         <h2 className="font-semibold text-amber-200">Development preview</h2>
-                        <p className="mt-2 text-sm leading-relaxed text-amber-100/80">Tenant access, the learning core and a sandbox-only safe simulation workflow are implemented for controlled development review. This is not a production release; reporting, AI, billing and integrations remain planned.</p>
+                        <p className="mt-2 text-sm leading-relaxed text-amber-100/80">Tenant access, the learning core, safe simulation controls and aggregate awareness insights are implemented for controlled development review. This is not a production release; extended reporting, AI, billing and integrations remain planned.</p>
                     </aside>
                     <section className="mt-12" aria-labelledby="modules-heading">
                         <h2 id="modules-heading" className="text-2xl font-semibold">The programme ahead</h2>

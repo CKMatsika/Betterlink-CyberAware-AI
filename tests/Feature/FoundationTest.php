@@ -15,13 +15,14 @@ class FoundationTest extends TestCase
         $this->withoutVite();
         $this->get('/')->assertOk()->assertInertia(fn (Assert $page) => $page
             ->component('Foundation')
-            ->where('phase', 'Phase 4 · M03 Safe simulation')
+            ->where('phase', 'Phase 5 · M04 Human-risk intelligence')
             ->has('modules', 8)
             ->where('modules.0.code', 'M01')
             ->where('modules.7.code', 'M08')
             ->where('modules.0.status', 'Complete')
             ->where('modules.1.status', 'Complete')
             ->where('modules.2.status', 'Complete')
+            ->where('modules.3.status', 'Complete')
             ->missing('users')
             ->missing('auth'));
     }

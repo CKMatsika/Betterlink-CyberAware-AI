@@ -78,11 +78,11 @@ verification shows minimal consented information and is rate-limited, with no en
 
 ## Risk, reporting and commercial design
 
-Versioned risk weights, time windows, missing-data handling and explanations accompany every
-snapshot. Example indicators: overdue assignment proportion, assessment gaps and simulation
-learning outcomes. A click is an awareness signal, never proof of misconduct. Suppress small
-cohorts and restrict person-level views. Reports use authorised snapshots and short-lived private
-exports, recording actor, purpose, scope and retention expiry.
+M04 uses immutable tenant-scoped weight versions, effective-dated monthly windows, missing-data
+handling and explanations for aggregate learning indicators. It does not store person-level risk
+snapshots. Post-simulation educational acknowledgement is a positive learning signal; simulation
+interactions are never proof of misconduct. Suppress cohorts below five. Future M06 reports and
+short-lived private exports require separate authorization and retention controls.
 
 Proposed tiers: Starter for SMEs (core learning/reporting), Growth for medium organisations
 (safe simulations and trends), Enterprise (advanced governance and future integrations).

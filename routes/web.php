@@ -3,6 +3,7 @@
 use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\LearningController;
 use App\Http\Controllers\MembersController;
+use App\Http\Controllers\RiskController;
 use App\Http\Controllers\SimulationController;
 use App\Http\Controllers\TenantHomeController;
 use App\Http\Middleware\SimulationPrivacyHeaders;
@@ -26,6 +27,8 @@ Route::middleware(['auth', 'verified', 'tenant'])->prefix('/org/{organisation}')
     Route::get('/members', [MembersController::class, 'index'])->middleware('permission:members.manage')->name('tenant.members');
     Route::post('/invitations', [InvitationController::class, 'create'])->middleware('permission:members.manage')->name('tenant.invitations.create');
     Route::get('/learning', [LearningController::class, 'catalogue'])->name('learning.catalogue');
+    Route::get('/risk', [RiskController::class, 'dashboard'])->middleware('permission:reports.view')->name('risk.dashboard');
+    Route::post('/risk/indicators', [RiskController::class, 'configure'])->middleware('permission:risk.configure')->name('risk.configure');
     Route::get('/learning/manage', [LearningController::class, 'admin'])->middleware('permission:learning.manage')->name('learning.admin');
     Route::post('/learning/courses', [LearningController::class, 'store'])->middleware('permission:learning.manage')->name('learning.store');
     Route::post('/learning/courses/{courseId}/versions', [LearningController::class, 'newVersion'])->middleware('permission:learning.manage')->name('learning.versions.create');

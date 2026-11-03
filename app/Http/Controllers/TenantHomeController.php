@@ -15,10 +15,13 @@ final class TenantHomeController extends Controller
     {
         app(Audit::class)->record($request, 'tenant.dashboard.viewed', 'membership', app(CurrentMembership::class)->membership->id);
 
+        $membership = app(CurrentMembership::class)->membership;
+
         return Inertia::render('Tenant/Home', [
             'organisation' => app(CurrentMembership::class)->membership->organisation->only(['id', 'name', 'timezone']),
-            'membership' => app(CurrentMembership::class)->membership->only(['id', 'department_id', 'branch_id']),
-            'role' => app(CurrentMembership::class)->membership->roleNames(),
+            'membership' => $membership->only(['id', 'department_id', 'branch_id']),
+            'role' => $membership->roleNames(),
+            'canViewRisk' => $membership->hasPermission('reports.view'),
         ]);
     }
 
