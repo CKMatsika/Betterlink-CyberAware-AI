@@ -1,11 +1,11 @@
 <?php
 
 return [
-    'phase' => 'Phase 2 · M02 Learning core',
+    'phase' => 'Phase 4 · M03 Safe simulation',
     'modules' => [
         ['code' => 'M01', 'name' => 'SaaS foundation', 'description' => 'Organisations, access control and tenant isolation.', 'status' => 'Complete'],
         ['code' => 'M02', 'name' => 'Learning management', 'description' => 'Original courses, assessments and completion evidence.', 'status' => 'Complete'],
-        ['code' => 'M03', 'name' => 'Safe simulations', 'description' => 'Authorised exercises with educational feedback.', 'status' => 'Planned'],
+        ['code' => 'M03', 'name' => 'Safe simulations', 'description' => 'Authorised exercises with educational feedback.', 'status' => 'Complete'],
         ['code' => 'M04', 'name' => 'Human-risk intelligence', 'description' => 'Transparent indicators and programme trends.', 'status' => 'Planned'],
         ['code' => 'M05', 'name' => 'AI learning assistant', 'description' => 'Privacy-aware support with human content review.', 'status' => 'Planned'],
         ['code' => 'M06', 'name' => 'Reporting and audit', 'description' => 'Training evidence and management reporting.', 'status' => 'Planned'],

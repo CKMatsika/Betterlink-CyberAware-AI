@@ -39,6 +39,12 @@ final class Membership extends Model
 
     public function hasPermission(string $permission): bool
     {
+        // M03 permissions are introduced by a later migration than many tenants' role grants.
+        // Preserve the established tenant-admin authority without broadening other roles.
+        if (in_array($permission, ['simulations.authorise', 'simulations.approve', 'simulations.kill'], true) && $this->hasAnyRole(['tenant_admin'])) {
+            return true;
+        }
+
         return DB::table('membership_roles')->join('role_permissions', function ($join) {
             $join->on('role_permissions.role_id', '=', 'membership_roles.role_id')->on('role_permissions.organisation_id', '=', 'membership_roles.organisation_id');
         })->join('permissions', 'permissions.id', '=', 'role_permissions.permission_id')

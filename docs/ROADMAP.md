@@ -1,6 +1,6 @@
 # Independently approved implementation phases
 
-M01 and M02 are complete for controlled development review. Stop here; later phases need explicit approval.
+M01, M02 and M03 are complete for controlled development review. Stop here; later phases need explicit approval.
 
 | Phase | Deliverables | Exit gate |
 | --- | --- | --- |
@@ -8,7 +8,7 @@ M01 and M02 are complete for controlled development review. Stop here; later pha
 | 1 — Secure tenancy | M01 organisations, memberships, scoped roles, invitations, authentication, verification, MFA, policies, audit, RLS | Restricted-role PostgreSQL cross-tenant tests across HTTP/jobs/storage; RBAC matrix, recovery and session tests |
 | 2 — Learning core | M02 original course drafts/review/versioning, lessons, private media, quizzes, assignments, learner dashboard | Server grading, progress/retry tests, accessibility and low-bandwidth browser acceptance |
 | 3 — Evidence and reporting | Certificates/revocation/verification, reminders, M06 tenant/department reporting, private audit exports | Evidence integrity, minimal public verification, export authorisation, retention tests |
-| 4 — Safe simulation | M03 authorisation, verified recipients, distinct approval, safe templates, kill switch, scheduled controlled delivery, remedial assignments | Abuse/threat tests, approval invalidation, quotas/suppression/retry/cancel, mail sandbox pilot only before external delivery approval |
+| 4 — Safe simulation | **M03 complete:** organisation-authorised recipient scopes, DNS domain proof, distinct digest-bound approval, fixed safe template, kill switch, scheduled sandbox delivery, feedback, idempotent remedial assignments and aggregate results | Local PostgreSQL sandbox workflow verified with `cyberaware_app`; no external email; controlled development review only. Broader retry/quota abuse matrix remains release-hardening evidence |
 | 5 — Human-risk intelligence | M04 configurable versioned indicators, trends, explanations and executive summaries | Reproducible scoring, missing-data rules, small-cohort privacy checks; no misconduct inference |
 | 6 — AI assistant | M05 approved provider adapter, private retrieval, original drafts and mandatory review | AI privacy/injection evaluation, publication gate and kill switch |
 | 7 — Commercial SaaS | M08 per-user/annual tiers, trials, seats, onboarding, entitlement enforcement and controlled billing | Entitlements cannot bypass policies; live payment integration requires explicit approval and sandbox verification |
