@@ -24,10 +24,17 @@ final class CreateOrganisation extends Command
             return self::FAILURE;
         }
 
+        $id = $this->createFor($user, (string) $this->argument('name'), (string) $this->argument('slug'), $tenant, $audit);
+        $this->components->info("Organisation created: {$id}");
+
+        return self::SUCCESS;
+    }
+
+    public function createFor(User $user, string $name, string $slug, TenantContext $tenant, Audit $audit): string
+    {
         $id = (string) Str::uuid();
-        $tenant->run($id, function () use ($id, $user, $audit) {
-            $name = $this->argument('name');
-            DB::table('organisations')->insert(['id' => $id, 'name' => $name, 'slug' => $this->argument('slug'), 'timezone' => 'Africa/Harare', 'status' => 'active', 'created_at' => now(), 'updated_at' => now()]);
+        $tenant->run($id, function () use ($id, $user, $audit, $name, $slug) {
+            DB::table('organisations')->insert(['id' => $id, 'name' => $name, 'slug' => $slug, 'timezone' => 'Africa/Harare', 'status' => 'active', 'created_at' => now(), 'updated_at' => now()]);
             $membershipId = (string) Str::uuid();
             DB::table('memberships')->insert(['id' => $membershipId, 'organisation_id' => $id, 'user_id' => $user->id, 'status' => 'active', 'joined_at' => now(), 'created_at' => now(), 'updated_at' => now()]);
             $permissions = DB::table('permissions')->pluck('id', 'name');
@@ -50,11 +57,10 @@ final class CreateOrganisation extends Command
                 }
             }
             DB::table('membership_roles')->insert(['organisation_id' => $id, 'membership_id' => $membershipId, 'role_id' => $roleIds['tenant_admin'], 'assigned_by' => $user->id, 'created_at' => now()]);
-            $audit->record(request(), 'organisation.created', 'organisation', $id, ['slug' => $this->argument('slug')]);
+            $user->forceFill(['home_organisation_id' => $id])->save();
+            $audit->record(request(), 'organisation.created', 'organisation', $id, ['slug' => $slug]);
         });
 
-        $this->components->info("Organisation created: {$id}");
-
-        return self::SUCCESS;
+        return $id;
     }
 }

@@ -1,4 +1,4 @@
-import { Head } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 
 type Module = { code: string; name: string; description: string; status: string };
 type Props = { modules: Module[]; phase: string };
@@ -11,13 +11,14 @@ export default function Foundation({ modules, phase }: Props) {
                 <header className="border-b border-slate-800">
                     <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-6 py-6">
                         <a href="/" className="font-semibold tracking-tight">Betterlink <span className="text-teal-400">CyberAware AI</span></a>
-                        <span className="rounded-full border border-teal-800 bg-teal-950 px-3 py-1 text-xs text-teal-200">{phase} · Development</span>
+                        <div className="flex flex-wrap items-center gap-3"><Link href="/login" className="rounded-lg border border-slate-700 px-4 py-2 text-sm hover:border-teal-500">Sign in</Link><Link href="/get-started" className="rounded-lg bg-teal-600 px-4 py-2 text-sm font-medium hover:bg-teal-500">Get started</Link><span className="rounded-full border border-teal-800 bg-teal-950 px-3 py-1 text-xs text-teal-200">{phase} · Development</span></div>
                     </div>
                 </header>
                 <main className="mx-auto max-w-6xl px-6 py-14">
                     <p className="text-sm font-medium uppercase tracking-widest text-teal-400">Betterlink Engineering</p>
                     <h1 className="mt-5 max-w-3xl text-4xl font-semibold leading-tight tracking-tight sm:text-6xl">Build awareness.<br />Strengthen your people.</h1>
                     <p className="mt-6 max-w-2xl text-lg leading-relaxed text-slate-300">Cybersecurity learning and human-risk management designed for organisations in Zimbabwe, Southern Africa and beyond.</p>
+                    <div className="mt-7 flex flex-wrap gap-3"><Link href="/get-started" className="rounded-lg bg-teal-600 px-5 py-3 font-medium hover:bg-teal-500">Get started</Link><Link href="/login" className="rounded-lg border border-slate-600 px-5 py-3 font-medium hover:border-teal-500">Sign in</Link></div>
                     <aside className="mt-10 rounded-xl border border-amber-800/60 bg-amber-950/30 p-5" aria-label="Implementation status">
                         <h2 className="font-semibold text-amber-200">Development preview</h2>
                         <p className="mt-2 text-sm leading-relaxed text-amber-100/80">Tenant access, the learning core, safe simulation controls and aggregate awareness insights are implemented for controlled development review. This is not a production release; extended reporting, AI, billing and integrations remain planned.</p>

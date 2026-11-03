@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Inertia\Testing\AssertableInertia as Assert;
 use Tests\TestCase;
@@ -30,6 +31,30 @@ class FoundationTest extends TestCase
     public function test_framework_health_endpoint_is_available(): void
     {
         $this->get('/up')->assertOk();
+    }
+
+    public function test_sign_in_and_get_started_pages_are_available(): void
+    {
+        $this->get('/login')->assertOk()->assertInertia(fn (Assert $page) => $page->component('Auth/Login'));
+        $this->get('/get-started')->assertOk()->assertInertia(fn (Assert $page) => $page->component('GettingStarted'));
+    }
+
+    public function test_authenticated_users_without_a_workspace_get_clear_onboarding(): void
+    {
+        $user = User::factory()->create(['email_verified_at' => now()]);
+
+        $this->actingAs($user)->get('/dashboard')->assertOk()
+            ->assertInertia(fn (Assert $page) => $page->component('Tenant/ChooseOrganisation'));
+    }
+
+    public function test_first_tenant_bootstrap_fails_closed_outside_postgresql(): void
+    {
+        $this->artisan('cyberaware:bootstrap-tenant', [
+            'organisation' => 'Test organisation',
+            'slug' => 'test-organisation',
+            'admin-email' => 'admin@example.test',
+            'admin-name' => 'Test Admin',
+        ])->assertExitCode(1)->expectsOutputToContain('requires PostgreSQL');
     }
 
     public function test_public_registration_and_product_workflows_are_not_exposed(): void

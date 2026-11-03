@@ -7,6 +7,7 @@ use App\Http\Controllers\RiskController;
 use App\Http\Controllers\SimulationController;
 use App\Http\Controllers\TenantHomeController;
 use App\Http\Middleware\SimulationPrivacyHeaders;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -16,6 +17,17 @@ Route::get('/', function () {
         'modules' => config('cyberaware.modules'),
     ]);
 });
+
+Route::get('/get-started', fn () => Inertia::render('GettingStarted'))->name('get-started');
+
+Route::get('/dashboard', function (Request $request) {
+    $organisationId = $request->user()->home_organisation_id ?? $request->session()->get('organisation_id');
+    if (is_string($organisationId) && preg_match('/^[0-9a-f-]{36}$/i', $organisationId) === 1) {
+        return redirect()->route('tenant.home', ['organisation' => $organisationId]);
+    }
+
+    return Inertia::render('Tenant/ChooseOrganisation');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('guest')->group(function () {
     Route::get('/invitations/{organisation}/{token}', [InvitationController::class, 'show'])->name('invitations.show');

@@ -2,6 +2,7 @@
 
 return [
     'phase' => 'Phase 5 · M04 Human-risk intelligence',
+    'bootstrap_password' => env('CYBERAWARE_BOOTSTRAP_PASSWORD'),
     'modules' => [
         ['code' => 'M01', 'name' => 'SaaS foundation', 'description' => 'Organisations, access control and tenant isolation.', 'status' => 'Complete'],
         ['code' => 'M02', 'name' => 'Learning management', 'description' => 'Original courses, assessments and completion evidence.', 'status' => 'Complete'],

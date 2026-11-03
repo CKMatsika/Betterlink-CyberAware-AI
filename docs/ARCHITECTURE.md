@@ -1,6 +1,6 @@
 # Architecture decisions — Phase 0
 
-Status: design approved for implementation planning; tenant security is not yet operational.
+Status: M01–M04 are implemented for controlled development review; later modules remain unapproved.
 Source of scope: [master brief](../MASTER_BRIEF.md). Developer: Betterlink Engineering.
 
 ## Stack and runtime
@@ -11,9 +11,9 @@ sessions, validation, policies, queues, notifications and scheduling. A single d
 application has separately scalable web and queue processes. PostgreSQL is authoritative;
 private object storage holds media and audit exports. No dependency on any other project.
 
-Phase 0 serves a public, data-free foundation page and framework health route only.
-Default Laravel identity/cache/queue migrations are retained for framework smoke testing;
-they do not constitute tenant-aware authentication. No registration/login routes are exposed.
+The public root serves a data-free programme page. M01 provides invitation-only authentication,
+tenant membership and login; public registration remains disabled. The first administrator is
+provisioned only by an operator-run, one-time PostgreSQL command. See [Laravel Cloud setup](LARAVEL_CLOUD.md).
 
 ## Tenant isolation decision
 

@@ -54,6 +54,7 @@ final class InvitationController extends Controller
                     ['organisation_id' => $invitation->organisation_id, 'user_id' => $user->id],
                     ['status' => 'active', 'joined_at' => now()],
                 );
+                $user->forceFill(['home_organisation_id' => $invitation->organisation_id])->save();
                 $role = DB::table('roles')->where('organisation_id', $invitation->organisation_id)->where('name', 'learner')->first();
                 abort_unless($role, 409, 'The organisation has not completed role setup.');
                 DB::table('membership_roles')->insertOrIgnore(['organisation_id' => $invitation->organisation_id, 'membership_id' => $membership->id, 'role_id' => $role->id, 'assigned_by' => $invitation->invited_by, 'created_at' => now()]);

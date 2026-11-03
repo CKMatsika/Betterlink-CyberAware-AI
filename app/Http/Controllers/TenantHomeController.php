@@ -13,12 +13,14 @@ final class TenantHomeController extends Controller
 {
     public function __invoke(Request $request): Response
     {
-        app(Audit::class)->record($request, 'tenant.dashboard.viewed', 'membership', app(CurrentMembership::class)->membership->id);
-
         $membership = app(CurrentMembership::class)->membership;
+        if ($request->user()->home_organisation_id !== $membership->organisation_id) {
+            $request->user()->forceFill(['home_organisation_id' => $membership->organisation_id])->save();
+        }
+        app(Audit::class)->record($request, 'tenant.dashboard.viewed', 'membership', $membership->id);
 
         return Inertia::render('Tenant/Home', [
-            'organisation' => app(CurrentMembership::class)->membership->organisation->only(['id', 'name', 'timezone']),
+            'organisation' => $membership->organisation->only(['id', 'name', 'timezone']),
             'membership' => $membership->only(['id', 'department_id', 'branch_id']),
             'role' => $membership->roleNames(),
             'canViewRisk' => $membership->hasPermission('reports.view'),
